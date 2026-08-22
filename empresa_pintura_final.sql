@@ -96,7 +96,7 @@ CREATE TABLE detalle_presupuesto (
 	CHECK (
 	    id_pintura IS NOT NULL
 	    OR suplemento_pintura_aplicado IS NULL
-	);
+	),
     CONSTRAINT chk_detalle_cantidad
         CHECK (cantidad > 0),
     CONSTRAINT chk_detalle_capas
