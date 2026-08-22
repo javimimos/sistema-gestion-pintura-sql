@@ -125,8 +125,10 @@ CREATE TABLE obra (
     CONSTRAINT chk_obra_fechas
         CHECK (
             fecha_fin IS NULL
-            OR fecha_inicio IS NULL
-            OR fecha_fin >= fecha_inicio
+            OR (
+               fecha_inicio IS NOT NULL 
+               AND fecha_fin >= fecha_inicio
+               )
         ),
     CONSTRAINT fk_obra_presupuesto
         FOREIGN KEY (id_presupuesto) REFERENCES presupuesto (id_presupuesto),
