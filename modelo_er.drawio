@@ -1,0 +1,61 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Modelo ER - Empresa de Pintura" id="0">
+    <mxGraphModel dx="855" dy="695" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="cliente" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;verticalAlign=top;spacingTop=8;spacingLeft=8" value="&lt;b&gt;CLIENTE&lt;/b&gt;&lt;hr&gt;&lt;b&gt;PK&lt;/b&gt; id_cliente INT NOT NULL&lt;br&gt;nombre VARCHAR(100) NOT NULL&lt;br&gt;apellidos VARCHAR(150) NOT NULL&lt;br&gt;telefono VARCHAR(20) NOT NULL UNIQUE&lt;br&gt;email VARCHAR(150) NOT NULL UNIQUE" vertex="1">
+          <mxGeometry height="185" width="320" x="40" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="presupuesto" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;verticalAlign=top;spacingTop=8;spacingLeft=8" value="&lt;b&gt;PRESUPUESTO&lt;/b&gt;&lt;hr&gt;&lt;b&gt;PK&lt;/b&gt; id_presupuesto INT NOT NULL&lt;br&gt;&lt;b&gt;FK&lt;/b&gt; id_cliente INT NOT NULL&lt;br&gt;direccion VARCHAR(255) NOT NULL&lt;br&gt;&lt;div&gt;fecha_creacion DATE NOT NULL DEFAULT CURRENT_DATE&lt;/div&gt;&lt;div&gt;fecha_envio DATE NULL&lt;/div&gt;&lt;div&gt;fecha_respuesta DATE NULL&lt;/div&gt;estado VARCHAR(30) NOT NULL DEFAULT &#39;generado&#39;&lt;br&gt;&lt;i&gt;  CHECK: generado | enviado | aceptado | rechazado&lt;/i&gt;" vertex="1">
+          <mxGeometry height="205" width="350" x="420" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="obra" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;verticalAlign=top;spacingTop=8;spacingLeft=8" value="&lt;b&gt;OBRA&lt;/b&gt;&lt;hr&gt;&lt;b&gt;PK&lt;/b&gt; id_obra INT NOT NULL&lt;br&gt;&lt;b&gt;FK UNIQUE&lt;/b&gt; id_presupuesto INT NOT NULL&lt;br&gt;fecha_inicio DATE NULL&lt;br&gt;fecha_fin DATE NULL&lt;br&gt;estado VARCHAR(30) NOT NULL DEFAULT &#39;sin_iniciar&#39;&lt;br&gt;&lt;i&gt;  CHECK: sin_iniciar | en_curso | finalizada | cancelada&lt;/i&gt;" vertex="1">
+          <mxGeometry height="205" width="350" x="840" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="factura" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;verticalAlign=top;spacingTop=8;spacingLeft=8" value="&lt;b&gt;FACTURA&lt;/b&gt;&lt;hr&gt;&lt;b&gt;PK&lt;/b&gt; id_factura INT NOT NULL&lt;br&gt;&lt;b&gt;FK&lt;/b&gt; id_obra INT NOT NULL&lt;br&gt;fecha_emision DATE NOT NULL DEFAULT CURRENT DATE&lt;br&gt;fecha_envio DATE NULL&lt;br&gt;fecha_pago DATE NULL&lt;br&gt;estado VARCHAR(30) NOT NULL DEFAULT &#39;generada&#39;&lt;br&gt;&lt;i&gt;  CHECK: generada | enviada | pagada | cancelada&lt;/i&gt;&lt;br&gt;importe_total NUMERIC(10,2) NOT NULL" vertex="1">
+          <mxGeometry height="255" width="350" x="1260" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="detalle" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;verticalAlign=top;spacingTop=8;spacingLeft=8" value="&lt;b&gt;DETALLE_PRESUPUESTO&lt;/b&gt;&lt;hr&gt;&lt;b&gt;PK&lt;/b&gt; id_detalle INT NOT NULL&lt;br&gt;&lt;b&gt;FK&lt;/b&gt; id_presupuesto INT NOT NULL&lt;br&gt;&lt;b&gt;FK&lt;/b&gt; id_servicio INT NOT NULL&lt;br&gt;&lt;b&gt;FK&lt;/b&gt; id_pintura INT NULL&lt;br&gt;estancia VARCHAR(100) NOT NULL&lt;br&gt;&lt;div&gt;cantidad DECIMAL(10,2) NOT NULL&lt;/div&gt;&lt;div&gt;CHECK: cantidad &amp;gt; 0&lt;/div&gt;&lt;div&gt;capas INT NULL&lt;/div&gt;&lt;div&gt;CHECK: capas IS NULL OR capas &amp;gt; 0&lt;/div&gt;color VARCHAR(50) NULL&lt;br&gt;precio_servicio_aplicado DECIMAL(10,2) NOT NULL&lt;br&gt;suplemento_pintura_aplicado DECIMAL(10,2) NULL&lt;br&gt;importe_detalle DECIMAL(10,2) NOT NULL" vertex="1">
+          <mxGeometry height="335" width="410" x="420" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="servicio" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;verticalAlign=top;spacingTop=8;spacingLeft=8" value="&lt;b&gt;SERVICIO&lt;/b&gt;&lt;hr&gt;&lt;b&gt;PK&lt;/b&gt; id_servicio INT NOT NULL&lt;br&gt;nombre VARCHAR(100) NOT NULL UNIQUE&lt;br&gt;descripcion TEXT NULL&lt;br&gt;unidad_medida VARCHAR(20) NOT NULL&lt;br&gt;precio_unitario_actual DECIMAL(10,2) NOT NULL" vertex="1">
+          <mxGeometry height="185" width="320" x="40" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="pintura" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;verticalAlign=top;spacingTop=8;spacingLeft=8" value="&lt;b&gt;PINTURA&lt;/b&gt;&lt;hr&gt;&lt;b&gt;PK&lt;/b&gt; id_pintura INT NOT NULL&lt;br&gt;nombre VARCHAR(100) NOT NULL&lt;br&gt;descripcion TEXT NULL&lt;br&gt;precio_extra_actual DECIMAL(10,2) NOT NULL" vertex="1">
+          <mxGeometry height="165" width="320" x="900" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="empleado" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;verticalAlign=top;spacingTop=8;spacingLeft=8" value="&lt;b&gt;EMPLEADO&lt;/b&gt;&lt;hr&gt;&lt;b&gt;PK&lt;/b&gt; id_empleado INT NOT NULL&lt;br&gt;nombre VARCHAR(100) NOT NULL&lt;br&gt;apellidos VARCHAR(150) NOT NULL&lt;br&gt;telefono VARCHAR(20) NOT NULL UNIQUE&lt;br&gt;email VARCHAR(150) NOT NULL UNIQUE" vertex="1">
+          <mxGeometry height="185" width="320" x="1290" y="390" as="geometry" />
+        </mxCell>
+        <mxCell id="asignacion" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;verticalAlign=top;spacingTop=8;spacingLeft=8" value="&lt;b&gt;ASIGNACION_EMPLEADO&lt;/b&gt;&lt;hr&gt;&lt;b&gt;PK&lt;/b&gt; id_asignacion INT NOT NULL&lt;br&gt;&lt;b&gt;FK&lt;/b&gt; id_empleado INT NOT NULL&lt;br&gt;&lt;b&gt;FK&lt;/b&gt; id_obra INT NOT NULL&lt;br&gt;fecha DATE NOT NULL" vertex="1">
+          <mxGeometry height="155" width="320" x="1290" y="760" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="cliente" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=ERmany;startArrow=ERone;strokeWidth=2" target="presupuesto" value="1 : N">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="presupuesto" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=ERmany;startArrow=ERone;strokeWidth=2" target="detalle" value="1 : N">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="servicio" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=ERmany;startArrow=ERone;strokeWidth=2" target="detalle" value="1 : N">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="pintura" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=ERmany;startArrow=ERzeroOrOne;strokeWidth=2" target="detalle" value="0..1 : N">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="presupuesto" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=ERzeroOrOne;startArrow=ERone;strokeWidth=2" target="obra" value="1 : 0..1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="obra" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=ERzeroOrOne;startArrow=ERone;strokeWidth=2" target="factura" value="1 : 0..1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="obra" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=ERmany;startArrow=ERone;strokeWidth=2" target="asignacion" value="1 : N">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="empleado" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=ERmany;startArrow=ERone;strokeWidth=2" target="asignacion" value="1 : N">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
