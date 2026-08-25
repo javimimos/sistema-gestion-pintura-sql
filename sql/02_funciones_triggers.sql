@@ -387,6 +387,79 @@ EXECUTE FUNCTION validar_estado_obra();
 
 
 -- ------------------------------------------------------------
+--  GESTIONAR FACTURA AL REABRIR UNA OBRA
+--
+--  Si una obra finalizada vuelve a estar en curso:
+--
+--    · Si no existe factura → se permite.
+--    · Si la factura está generada o cancelada → se elimina.
+--    · Si la factura está enviada o pagada → no se permite
+--      reabrir la obra.
+--
+--  Esto evita que una obra vuelva a estar en curso mientras
+--  existe una factura que ya ha sido enviada o cobrada.
+-- ------------------------------------------------------------
+
+CREATE OR REPLACE FUNCTION gestionar_factura_reapertura_obra()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+AS $$
+DECLARE
+    estado_factura VARCHAR(30);
+BEGIN
+
+    -- Solo actuamos cuando una obra finalizada
+    -- vuelve a estar en curso.
+    IF OLD.estado = 'finalizada'
+       AND NEW.estado = 'en_curso' THEN
+
+        -- Comprobar si existe una factura para la obra.
+        SELECT estado
+        INTO estado_factura
+        FROM factura
+        WHERE id_obra = NEW.id_obra;
+
+
+        -- Si existe una factura enviada o pagada,
+        -- no se puede reabrir la obra.
+        IF estado_factura IN ('enviada', 'pagada') THEN
+
+            RAISE EXCEPTION
+                'No se puede reabrir la obra % porque su factura está %.',
+                NEW.id_obra,
+                estado_factura;
+
+        END IF;
+
+
+        -- Si la factura está generada o cancelada,
+        -- se elimina porque la obra ya no está finalizada.
+        IF estado_factura IN ('generada', 'cancelada') THEN
+
+            DELETE FROM factura
+            WHERE id_obra = NEW.id_obra;
+
+        END IF;
+
+    END IF;
+
+    RETURN NEW;
+
+END;
+$$;
+
+
+DROP TRIGGER IF EXISTS trg_gestionar_factura_reapertura_obra
+ON obra;
+
+CREATE TRIGGER trg_gestionar_factura_reapertura_obra
+AFTER UPDATE OF estado ON obra
+FOR EACH ROW
+EXECUTE FUNCTION gestionar_factura_reapertura_obra();
+
+
+
+-- ------------------------------------------------------------
 --  VALIDAR PRESUPUESTO DE LA OBRA
 --
 --  Una obra solamente puede crearse si su presupuesto

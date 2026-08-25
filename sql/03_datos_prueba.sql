@@ -365,14 +365,14 @@ SELECT setval(pg_get_serial_sequence('obra', 'id_obra'), 13);
 -- ------------------------------------------------------------
 INSERT INTO factura
     (id_factura, id_obra, fecha_emision, fecha_envio, fecha_pago,
-     estado, importe_total)
+     estado)
 OVERRIDING SYSTEM VALUE VALUES
---                                        emision       envio         pago
-(1,  1, '2024-02-09', '2024-02-12', '2024-02-29', 'pagada',    572.50),
-(2,  2, '2024-02-23', '2024-02-26', '2024-03-15', 'pagada',   2160.00),
-(3,  3, '2024-03-13', '2024-03-15',  NULL,          'enviada',   659.00),
-(4,  4, '2024-03-23', '2024-03-26', '2024-04-10', 'pagada',   1012.80),
-(5,  5, '2024-04-04', NULL,  NULL,          'generada',  1332.50);
+--                                        emision       envio        
+(1,  1, '2024-02-09', '2024-02-12', '2024-02-29', 'pagada'),
+(2,  2, '2024-02-23', '2024-02-26', '2024-03-15', 'pagada'),
+(3,  3, '2024-03-13', '2024-03-15',  NULL,          'enviada'),
+(4,  4, '2024-03-23', '2024-03-26', '2024-04-10', 'pagada'),
+(5,  5, '2024-04-04', NULL,  NULL,          'generada');
 
 SELECT setval(pg_get_serial_sequence('factura', 'id_factura'), 5);
 
