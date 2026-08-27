@@ -189,6 +189,8 @@ Entre las reglas implementadas destacan:
 │   ├── 03_datos_prueba.sql
 │   └── 04_consultas.sql
 │
+├── LICENSE
+|
 └── README.md
 ```
 
