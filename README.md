@@ -237,7 +237,6 @@ Contiene los términos de la licencia MIT bajo la que se distribuye el proyecto.
 
   * `psql`
   * **pgAdmin 4**
-  * **DBeaver**
 
 ### 1. Crear la base de datos
 
@@ -390,7 +389,7 @@ El objetivo principal es diseñar e implementar una **base de datos relacional c
 * Normalización.
 * Claves primarias y foráneas.
 * Restricciones de integridad.
-* `CHECK constraints`.
+* CHECK constraints.
 * Consultas SQL.
 * Agregaciones.
 * Subconsultas.
