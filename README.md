@@ -222,7 +222,7 @@ Contiene los scripts necesarios para construir y utilizar la base de datos:
 * `03_datos_prueba.sql`: datos de prueba coherentes con el modelo.
 * `04_consultas.sql`: consultas SQL para explotación y análisis de los datos.
 
-#### `LICENSE/`
+#### `LICENSE`
 
 Contiene los términos de la licencia MIT bajo la que se distribuye el proyecto.
 
