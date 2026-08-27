@@ -1,0 +1,54 @@
+# ============================================================
+# .gitignore — Proyecto Base de Datos PostgreSQL
+# ============================================================
+
+# --- Archivos del Sistema Operativo ---
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+# --- Entornos de Desarrollo / Editores (IDE) ---
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/extensions.json
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+
+# --- Gestores de Bases de Datos y Herramientas (pgAdmin, DBeaver, DataGrip) ---
+*.sql.bak
+*.bak
+*.backup
+*.dump
+*.tar
+*.out
+*.log
+.dbeaver/
+.dbeaver-data-sources.xml
+pgadmin4.db
+pgadmin4.log
+
+# --- Archivos Temporales y Comprimidos ---
+*.tmp
+*.temp
+*.zip
+*.rar
+*.7z
+*.tar.gz
+
+# --- Variables de Entorno y Credenciales ---
+.env
+.env.local
+.env.*.local
+*.secret
+secrets.json
