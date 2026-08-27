@@ -87,6 +87,15 @@ Las fechas de inicio y finalización se actualizan automáticamente según el es
 
 Esta lógica se implementa mediante `trg_actualizar_fechas_obra`.
 
+### 4.3.5. Reapertura de una obra y gestión de facturas
+
+Cuando una obra en estado `finalizada` vuelve a pasar a `en_curso`, el sistema gestiona la coherencia de la factura asociada:
+
+- Si existe una factura en estado `enviada` o `pagada`, la reapertura se bloquea mediante un error, impidiendo alterar una obra cuyo cobro ya ha sido tramitado.
+- Si la factura se encuentra en estado `generada` o `cancelada`, esta se elimina automáticamente, ya que la obra deja de estar finalizada y requerirá una nueva facturación al concluir nuevamente.
+
+Esta lógica se implementa mediante el trigger `trg_gestionar_factura_reapertura_obra`.
+
 ---
 
 ## 4.4. Reglas relacionadas con las facturas
@@ -169,6 +178,7 @@ Las principales reglas de negocio implementadas en la base de datos son:
 | Se actualizan automáticamente las fechas de la factura | Trigger |
 | Se calcula automáticamente el importe del detalle | Trigger |
 | Se calcula automáticamente el importe de la factura | Trigger |
+| Se gestiona la factura asociada ante la reapertura de una obra finalizada | Trigger |
 
 ---
 
@@ -186,3 +196,4 @@ Las principales reglas de negocio implementadas en la base de datos son:
 | `trg_calcular_importe_factura` | `FACTURA` | `calcular_importe_factura()` | Calcula el importe total |
 | `trg_validar_estado_factura` | `FACTURA` | `validar_estado_factura()` | Controla transiciones de estado |
 | `trg_validar_obra_factura` | `FACTURA` | `validar_obra_factura()` | Comprueba que la obra esté finalizada |
+| `trg_gestionar_factura_reapertura_obra` | `OBRA` | `gestionar_factura_reapertura_obra()` | Controla o elimina la factura si una obra finalizada vuelve a estar en curso |
