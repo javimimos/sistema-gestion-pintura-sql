@@ -190,7 +190,7 @@ Entre las reglas implementadas destacan:
 │   └── 04_consultas.sql
 │
 ├── LICENSE
-|
+│
 └── README.md
 ```
 
