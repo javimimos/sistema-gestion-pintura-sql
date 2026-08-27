@@ -282,6 +282,6 @@ Las reglas de negocio más complejas se implementan mediante funciones y trigger
 
 El modelo entidad-relación del sistema se representa mediante un diagrama que muestra las entidades, sus atributos principales y las relaciones existentes entre ellas.
 
-El diagrama se incorporará en esta sección como representación visual del modelo de datos.
+El diagrama entidad-relación definitivo del proyecto es el siguiente:
 
-> **Pendiente:** insertar aquí el diagrama entidad-relación definitivo del proyecto.
+![Diagrama entidad-relación de la empresa de pintura](../diagrams/modelo_entidad_relacion_empresa_pintura.png) 
