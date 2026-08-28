@@ -187,7 +187,7 @@ ORDER BY total_usos DESC;
 
 
 -- ============================================================
---  NIVEL 3 — ALTO
+--  NIVEL 3 — AVANZADO
 -- ============================================================
 
 --  26. ¿Cuál es el presupuesto de mayor importe?
@@ -273,7 +273,7 @@ ORDER BY total_facturado DESC;
 
 
 -- ============================================================
---  NIVEL 4 — AVANZADO
+--  NIVEL 4 — ANÁLISIS AVANZADO
 -- ============================================================
 
 --  34. ¿Qué presupuestos tienen un importe superior al importe medio de todos los presupuestos?
