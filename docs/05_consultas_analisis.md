@@ -4,7 +4,7 @@
 
 Este documento recoge y describe las consultas SQL desarrolladas para analizar la información almacenada en la base de datos de **Pinturillas SA**.
 
-El conjunto está formado por **38 consultas**, diseñadas con diferentes niveles de dificultad. El objetivo no es únicamente comprobar que la base de datos funciona correctamente, sino también demostrar el uso de diferentes recursos del lenguaje SQL para obtener información operativa y realizar análisis sobre los datos.
+El conjunto está formado por **38 consultas**, diseñadas con diferentes niveles de dificultad. El objetivo no es únicamente comprobar el correcto funcionamiento de la base de datos, sino también demostrar el uso de diferentes recursos del lenguaje SQL para obtener información operativa y realizar análisis sobre los datos.
 
 Las consultas completas se encuentran en:
 
@@ -14,17 +14,17 @@ sql/04_consultas.sql
 
 En este documento se explica el objetivo de cada consulta y las principales técnicas SQL utilizadas.
 
-Las consultas se organizan por **nivel de dificultad**, en lugar de agruparlas exclusivamente por las tablas que utilizan. De esta forma, se muestra una progresión desde operaciones básicas hasta consultas que combinan varias técnicas de análisis.
+Las consultas se organizan en cuatro niveles de dificultad, siguiendo una progresión desde operaciones básicas hasta consultas que combinan diferentes técnicas de análisis.
 
 ---
 
-## 5.2. Nivel 1 — Consultas básicas
+## 5.2. Nivel 1 — Básico
 
-Las primeras consultas utilizan operaciones fundamentales de SQL, como `SELECT`, `WHERE`, `JOIN`, `DISTINCT`, subconsultas sencillas y funciones de agregación básicas.
+Las primeras consultas utilizan operaciones fundamentales de SQL, como `SELECT`, `WHERE`, `JOIN`, `DISTINCT` y funciones de agregación básicas.
 
 ### Consulta 1 — Clientes registrados
 
-**Objetivo:** obtener el listado de clientes registrados actualmente en el sistema.
+**Objetivo:** obtener el listado de clientes registrados en el sistema.
 
 **Técnicas utilizadas:**
 
@@ -35,7 +35,7 @@ Las primeras consultas utilizan operaciones fundamentales de SQL, como `SELECT`,
 
 ### Consulta 2 — Número de clientes
 
-**Objetivo:** conocer cuántos clientes están registrados.
+**Objetivo:** conocer cuántos clientes están registrados en el sistema.
 
 **Técnicas utilizadas:**
 
@@ -56,7 +56,129 @@ Las primeras consultas utilizan operaciones fundamentales de SQL, como `SELECT`,
 
 ---
 
-### Consulta 4 — Clientes con más de un presupuesto
+### Consulta 4 — Servicios ofrecidos
+
+**Objetivo:** consultar los servicios disponibles junto con su unidad de medida y precio unitario actual.
+
+**Técnicas utilizadas:**
+
+* `SELECT`
+* Proyección de columnas.
+* `ORDER BY`
+
+---
+
+### Consulta 5 — Tipos de pintura
+
+**Objetivo:** consultar los tipos de pintura disponibles y sus suplementos correspondientes.
+
+**Técnicas utilizadas:**
+
+* `SELECT`
+* `ORDER BY`
+
+---
+
+### Consulta 6 — Presupuestos rechazados
+
+**Objetivo:** obtener los presupuestos que han sido rechazados junto con la información del cliente que los solicitó.
+
+**Técnicas utilizadas:**
+
+* `JOIN`
+* `WHERE`
+* `ORDER BY`
+
+---
+
+### Consulta 7 — Presupuestos pendientes de respuesta
+
+**Objetivo:** identificar los presupuestos que han sido enviados y permanecen pendientes de respuesta.
+
+**Técnicas utilizadas:**
+
+* `WHERE`
+* Filtrado por estado.
+* `ORDER BY`
+
+---
+
+### Consulta 8 — Facturas por estado
+
+**Objetivo:** conocer cuántas facturas existen en cada estado.
+
+**Técnicas utilizadas:**
+
+* `COUNT()`
+* `GROUP BY`
+* `ORDER BY`
+
+---
+
+### Consulta 9 — Facturas pendientes de pago
+
+**Objetivo:** identificar las facturas que han sido enviadas pero todavía no han sido pagadas.
+
+**Técnicas utilizadas:**
+
+* `JOIN`
+* `WHERE`
+* Filtrado por estado.
+* `ORDER BY`
+
+---
+
+### Consulta 10 — Facturación total
+
+**Objetivo:** calcular el importe total correspondiente a las facturas pagadas.
+
+**Técnicas utilizadas:**
+
+* `SUM()`
+* `WHERE`
+
+---
+
+### Consulta 11 — Obras en curso
+
+**Objetivo:** obtener las obras que se encuentran actualmente en estado `en_curso`.
+
+**Técnicas utilizadas:**
+
+* `WHERE`
+* Filtrado por estado.
+
+---
+
+### Consulta 12 — Empleados asignados a las obras
+
+**Objetivo:** mostrar los empleados asignados a cada obra.
+
+**Técnicas utilizadas:**
+
+* `JOIN`
+* Relación mediante `ASIGNACION_EMPLEADO`
+* `ORDER BY`
+
+---
+
+### Consulta 13 — Obras canceladas
+
+**Objetivo:** obtener las obras cuyo estado actual es `cancelada`.
+
+**Técnicas utilizadas:**
+
+* `WHERE`
+* Filtrado por estado.
+* `ORDER BY`
+
+---
+
+## 5.3. Nivel 2 — Intermedio
+
+En este nivel se incorporan agrupaciones, funciones de agregación y combinaciones de varias tablas para obtener información más elaborada.
+
+### Consulta 14 — Clientes con más de un presupuesto
 
 **Objetivo:** identificar los clientes que han solicitado más de un presupuesto.
 
@@ -69,40 +191,19 @@ Las primeras consultas utilizan operaciones fundamentales de SQL, como `SELECT`,
 
 ---
 
-### Consulta 5 — Catálogo de servicios
+### Consulta 15 — Servicio más caro actualmente
 
-**Objetivo:** consultar los servicios disponibles y su precio unitario actual.
-
-**Técnicas utilizadas:**
-
-* `SELECT`
-* Proyección de columnas.
-
----
-
-### Consulta 6 — Servicio más caro
-
-**Objetivo:** determinar cuál es el servicio con mayor precio unitario.
+**Objetivo:** determinar cuál es el servicio con mayor precio unitario actual.
 
 **Técnicas utilizadas:**
 
 * `MAX()`
 * Subconsulta.
-* Comparación con el valor máximo.
+* `WHERE`
 
 ---
 
-### Consulta 7 — Tipos de pintura
-
-**Objetivo:** consultar los tipos de pintura disponibles y su suplemento actual.
-
-**Técnicas utilizadas:**
-
-* `SELECT`
-
----
-
-### Consulta 8 — Presupuestos por estado
+### Consulta 16 — Presupuestos por estado
 
 **Objetivo:** conocer cuántos presupuestos existen en cada estado.
 
@@ -110,36 +211,11 @@ Las primeras consultas utilizan operaciones fundamentales de SQL, como `SELECT`,
 
 * `COUNT()`
 * `GROUP BY`
+* `ORDER BY`
 
 ---
 
-### Consulta 9 — Presupuestos rechazados
-
-**Objetivo:** obtener los presupuestos rechazados junto con el cliente que los solicitó.
-
-**Técnicas utilizadas:**
-
-* `JOIN`
-* `WHERE`
-
----
-
-### Consulta 10 — Presupuestos pendientes de respuesta
-
-**Objetivo:** identificar los presupuestos que han sido enviados y todavía están pendientes de respuesta.
-
-**Técnicas utilizadas:**
-
-* `WHERE`
-* Filtrado por estado.
-
----
-
-## 5.3. Nivel 2 — Agregaciones y combinaciones
-
-En este nivel se incorporan consultas que requieren realizar cálculos sobre grupos de registros y combinar información procedente de varias tablas.
-
-### Consulta 11 — Importe total de cada presupuesto
+### Consulta 17 — Importe total de cada presupuesto
 
 **Objetivo:** calcular el importe total de cada presupuesto a partir de sus detalles.
 
@@ -155,37 +231,7 @@ El uso de `LEFT JOIN` permite mantener también los presupuestos que no tengan d
 
 ---
 
-### Consulta 12 — Presupuesto de mayor importe
-
-**Objetivo:** determinar cuál es el presupuesto con mayor importe total.
-
-**Técnicas utilizadas:**
-
-* `SUM()`
-* `GROUP BY`
-* `WITH`
-* `MAX()`
-* Subconsulta.
-
----
-
-### Consulta 13 — Importe medio de los presupuestos aceptados
-
-**Objetivo:** calcular el importe medio de los presupuestos cuyo estado es `aceptado`.
-
-**Técnicas utilizadas:**
-
-* `WITH`
-* `SUM()`
-* `AVG()`
-* `GROUP BY`
-* `ROUND()`
-
-Primero se obtiene el importe individual de cada presupuesto y posteriormente se calcula la media de esos importes.
-
----
-
-### Consulta 14 — Obras por estado
+### Consulta 18 — Obras por estado
 
 **Objetivo:** conocer cuántas obras existen en cada estado.
 
@@ -193,20 +239,11 @@ Primero se obtiene el importe individual de cada presupuesto y posteriormente se
 
 * `COUNT()`
 * `GROUP BY`
+* `ORDER BY`
 
 ---
 
-### Consulta 15 — Obras en curso
-
-**Objetivo:** identificar las obras cuyo estado actual es `en_curso`.
-
-**Técnicas utilizadas:**
-
-* `WHERE`
-
----
-
-### Consulta 16 — Duración de las obras finalizadas
+### Consulta 19 — Duración de las obras finalizadas
 
 **Objetivo:** obtener las obras finalizadas y calcular su duración en días.
 
@@ -215,42 +252,25 @@ Primero se obtiene el importe individual de cada presupuesto y posteriormente se
 * Operaciones con fechas.
 * Resta de fechas.
 * `WHERE`
-
----
-
-### Consulta 17 — Clientes con obras en curso
-
-**Objetivo:** identificar qué clientes tienen actualmente una obra en ejecución.
-
-**Técnicas utilizadas:**
-
-* `JOIN`
-* `DISTINCT`
-* `WHERE`
-
-La información debe recorrer la relación entre `CLIENTE`, `PRESUPUESTO` y `OBRA`.
-
----
-
-### Consulta 18 — Empleados asignados a las obras
-
-**Objetivo:** mostrar los empleados que participan en cada obra.
-
-**Técnicas utilizadas:**
-
-* `JOIN`
-* Relación mediante `ASIGNACION_EMPLEADO`
 * `ORDER BY`
 
 ---
 
-## 5.4. Nivel 3 — Análisis y agregaciones avanzadas
+### Consulta 20 — Clientes con obras en curso
 
-Estas consultas combinan varias tablas y operaciones de agrupación para obtener indicadores útiles para la gestión de la empresa.
+**Objetivo:** identificar los clientes que tienen actualmente una obra en ejecución.
 
-### Consulta 19 — Empleados con mayor participación
+**Técnicas utilizadas:**
 
-**Objetivo:** determinar qué empleados han participado en un mayor número de obras.
+* Múltiples `JOIN`
+* `DISTINCT`
+* `WHERE`
+
+---
+
+### Consulta 21 — Empleados que han participado en más obras
+
+**Objetivo:** conocer qué empleados han participado en un mayor número de obras.
 
 **Técnicas utilizadas:**
 
@@ -259,45 +279,13 @@ Estas consultas combinan varias tablas y operaciones de agrupación para obtener
 * `GROUP BY`
 * `ORDER BY`
 
-El uso de `DISTINCT` evita contar varias veces una misma obra en caso de existir más de un registro de asignación.
+El uso de `DISTINCT` permite evitar contar una misma obra más de una vez para un empleado.
 
 ---
 
-### Consulta 20 — Obras canceladas
+### Consulta 22 — Clientes con facturas pendientes de pago
 
-**Objetivo:** obtener las obras cuyo estado es `cancelada`.
-
-**Técnicas utilizadas:**
-
-* `WHERE`
-
----
-
-### Consulta 21 — Facturas por estado
-
-**Objetivo:** conocer cuántas facturas existen en cada estado.
-
-**Técnicas utilizadas:**
-
-* `COUNT()`
-* `GROUP BY`
-
----
-
-### Consulta 22 — Facturas pendientes de pago
-
-**Objetivo:** identificar las facturas que han sido enviadas pero todavía no constan como pagadas.
-
-**Técnicas utilizadas:**
-
-* `WHERE`
-* Filtrado por estado.
-
----
-
-### Consulta 23 — Clientes con facturas pendientes
-
-**Objetivo:** identificar los clientes que tienen facturas pendientes de pago y conocer cuántas tienen.
+**Objetivo:** identificar los clientes que tienen facturas pendientes de pago y conocer el número de facturas pendientes de cada uno.
 
 **Técnicas utilizadas:**
 
@@ -305,23 +293,13 @@ El uso de `DISTINCT` evita contar varias veces una misma obra en caso de existir
 * `COUNT()`
 * `GROUP BY`
 * `WHERE`
+* `ORDER BY`
 
 ---
 
-### Consulta 24 — Facturación total
+### Consulta 23 — Factura de mayor importe
 
-**Objetivo:** calcular la facturación total correspondiente a las facturas pagadas.
-
-**Técnicas utilizadas:**
-
-* `SUM()`
-* `WHERE`
-
----
-
-### Consulta 25 — Factura de mayor importe
-
-**Objetivo:** determinar cuál es la factura con mayor importe.
+**Objetivo:** determinar cuál es la factura con mayor importe total.
 
 **Técnicas utilizadas:**
 
@@ -330,9 +308,9 @@ El uso de `DISTINCT` evita contar varias veces una misma obra en caso de existir
 
 ---
 
-### Consulta 26 — Tiempo medio de pago
+### Consulta 24 — Tiempo medio de pago de las facturas
 
-**Objetivo:** calcular cuántos días tardan de media los clientes en pagar las facturas pagadas.
+**Objetivo:** calcular cuántos días tardan de media en pagarse las facturas que constan como pagadas.
 
 **Técnicas utilizadas:**
 
@@ -341,37 +319,11 @@ El uso de `DISTINCT` evita contar varias veces una misma obra en caso de existir
 * `AVG()`
 * Filtrado por estado.
 
-El tiempo se obtiene mediante la diferencia entre `fecha_pago` y `fecha_envio`.
+El tiempo de pago se obtiene mediante la diferencia entre la fecha de pago y la fecha de envío de cada factura.
 
 ---
 
-### Consulta 27 — Facturación por cliente
-
-**Objetivo:** conocer la facturación generada por cada cliente.
-
-**Técnicas utilizadas:**
-
-* Múltiples `JOIN`
-* `SUM()`
-* `GROUP BY`
-* `ORDER BY`
-
----
-
-### Consulta 28 — Servicios con mayor importe económico
-
-**Objetivo:** determinar qué servicios generan un mayor importe económico en los presupuestos aceptados.
-
-**Técnicas utilizadas:**
-
-* `JOIN`
-* `SUM()`
-* `GROUP BY`
-* `ORDER BY`
-
----
-
-### Consulta 29 — Servicios utilizados con mayor frecuencia
+### Consulta 25 — Servicios utilizados con mayor frecuencia
 
 **Objetivo:** conocer qué servicios aparecen con mayor frecuencia en los detalles de los presupuestos.
 
@@ -384,51 +336,113 @@ El tiempo se obtiene mediante la diferencia entre `fecha_pago` y `fecha_envio`.
 
 ---
 
-## 5.5. Nivel 4 — Análisis empresarial avanzado
+## 5.4. Nivel 3 — Avanzado
 
-Este nivel introduce consultas destinadas a obtener indicadores empresariales y comparar diferentes magnitudes.
+Estas consultas combinan varias tablas y operaciones de agregación para obtener indicadores económicos y de gestión más elaborados.
 
-### Consulta 30 — Porcentaje de aceptación de presupuestos
+### Consulta 26 — Presupuesto de mayor importe
 
-**Objetivo:** calcular qué porcentaje de los presupuestos enviados termina siendo aceptado.
+**Objetivo:** determinar cuál es el presupuesto con mayor importe total.
+
+**Técnicas utilizadas:**
+
+* `SUM()`
+* `GROUP BY`
+* `WITH`
+* `MAX()`
+* Subconsulta.
+
+Primero se calcula el importe total de cada presupuesto y posteriormente se identifica el valor máximo.
+
+---
+
+### Consulta 27 — Importe medio de los presupuestos aceptados
+
+**Objetivo:** calcular el importe medio de los presupuestos cuyo estado es `aceptado`.
+
+**Técnicas utilizadas:**
+
+* `WITH`
+* `SUM()`
+* `AVG()`
+* `GROUP BY`
+* `ROUND()`
+
+Primero se obtiene el importe individual de cada presupuesto y posteriormente se calcula la media de los presupuestos aceptados.
+
+---
+
+### Consulta 28 — Clientes con mayor facturación
+
+**Objetivo:** conocer qué clientes han generado un mayor volumen de facturación mediante sus facturas pagadas.
+
+**Técnicas utilizadas:**
+
+* Múltiples `JOIN`
+* `SUM()`
+* `GROUP BY`
+* `ORDER BY`
+
+---
+
+### Consulta 29 — Servicios con mayor importe económico
+
+**Objetivo:** determinar qué servicios generan un mayor importe económico en los presupuestos.
+
+**Técnicas utilizadas:**
+
+* `JOIN`
+* `SUM()`
+* `GROUP BY`
+* `ORDER BY`
+
+---
+
+### Consulta 30 — Porcentaje de presupuestos aceptados
+
+**Objetivo:** calcular qué porcentaje de los presupuestos con decisión tomada termina siendo aceptado.
 
 **Técnicas utilizadas:**
 
 * `CASE`
 * `AVG()`
 * `ROUND()`
-* Filtrado mediante `WHERE`
+* `WHERE`
+
+La consulta considera únicamente los presupuestos cuyo estado es `aceptado` o `rechazado`, excluyendo aquellos que permanecen pendientes de decisión.
 
 ---
 
-### Consulta 31 — Porcentaje de rechazo de presupuestos
+### Consulta 31 — Porcentaje de presupuestos rechazados
 
-**Objetivo:** calcular qué porcentaje de los presupuestos enviados termina siendo rechazado.
+**Objetivo:** calcular qué porcentaje de los presupuestos con decisión tomada termina siendo rechazado.
 
 **Técnicas utilizadas:**
 
 * `CASE`
 * `AVG()`
 * `ROUND()`
-* Filtrado mediante `WHERE`
+* `WHERE`
+
+Al igual que en la consulta anterior, únicamente se consideran los presupuestos que ya tienen una decisión tomada.
 
 ---
 
-### Consulta 32 — Empleados y obras de mayor importe
+### Consulta 32 — Empleados que han participado en obras de mayor importe
 
-**Objetivo:** identificar los empleados que han participado en obras con mayor importe total.
+**Objetivo:** mostrar las obras junto con los empleados que participaron en ellas, ordenadas de mayor a menor importe.
 
 **Técnicas utilizadas:**
 
 * Múltiples `JOIN`
 * `DISTINCT`
-* Ordenación por importe.
+* `ORDER BY`
 
-Esta consulta relaciona empleados, asignaciones, obras y facturas para conocer la relación entre participación de empleados e importe económico de las obras.
+Esta consulta permite relacionar la participación de los empleados con el importe económico de las obras en las que han intervenido.
 
 ---
 
-### Consulta 33 — Facturación por mes
+### Consulta 33 — Meses con mayor facturación
 
 **Objetivo:** conocer qué meses han generado un mayor volumen de facturación.
 
@@ -439,13 +453,13 @@ Esta consulta relaciona empleados, asignaciones, obras y facturas para conocer l
 * `GROUP BY`
 * `ORDER BY`
 
-La consulta agrupa las facturas pagadas por año y mes.
+La consulta agrupa las facturas pagadas por año y mes y las ordena según el importe facturado.
 
 ---
 
-## 5.6. Nivel 5 — Consultas avanzadas
+## 5.5. Nivel 4 — Análisis avanzado
 
-Las últimas consultas incorporan técnicas de SQL analítico como **CTE (`WITH`)**, funciones de ventana y comparaciones contra valores agregados.
+Las últimas consultas incorporan técnicas de SQL analítico como **Common Table Expressions (`WITH`)** y funciones de ventana.
 
 ### Consulta 34 — Presupuestos por encima del importe medio
 
@@ -457,10 +471,10 @@ Las últimas consultas incorporan técnicas de SQL analítico como **CTE (`WITH`
 * `SUM()`
 * `AVG()`
 * Subconsulta.
-* Comparación contra un valor agregado.
+* `GROUP BY`
 * `ORDER BY`
 
-Primero se calcula el importe de cada presupuesto y posteriormente se compara cada resultado con la media global.
+Primero se calcula el importe total de cada presupuesto y posteriormente se compara cada resultado con la media global.
 
 ---
 
@@ -476,13 +490,13 @@ Primero se calcula el importe de cada presupuesto y posteriormente se compara ca
 * `GROUP BY`
 * Subconsulta.
 
-La CTE permite obtener primero el importe total generado por cada servicio y utilizar posteriormente esos resultados para calcular la media.
+La CTE permite calcular primero el importe total generado por cada servicio y posteriormente comparar esos resultados con la media.
 
 ---
 
 ### Consulta 36 — Obra de mayor importe dentro de cada estado
 
-**Objetivo:** obtener la obra de mayor importe para cada estado de obra.
+**Objetivo:** obtener la obra o las obras de mayor importe dentro de cada estado de obra.
 
 **Técnicas utilizadas:**
 
@@ -495,13 +509,13 @@ La CTE permite obtener primero el importe total generado por cada servicio y uti
 
 La función de ventana `RANK()` permite establecer una posición dentro de cada estado.
 
-Se utiliza `RANK()` en lugar de `ROW_NUMBER()` porque, si dos o más obras tienen el mismo importe máximo dentro de un estado, todas deben conservar la primera posición.
+Se utiliza `RANK()` en lugar de `ROW_NUMBER()` porque, si dos o más obras tienen el mismo importe máximo dentro de un estado, todas conservan la primera posición.
 
 ---
 
 ### Consulta 37 — Empleados por encima de la media de participación
 
-**Objetivo:** identificar los empleados que han participado en un número de obras superior a la media.
+**Objetivo:** identificar los empleados que han participado en un número de obras superior a la media de participación.
 
 **Técnicas utilizadas:**
 
@@ -530,13 +544,13 @@ Primero se calcula el número de obras en las que ha participado cada empleado y
 * `OVER()`
 * `ORDER BY`
 
-La función de ventana `LAG()` permite obtener la facturación del mes anterior para calcular la diferencia entre ambos periodos.
+La función de ventana `LAG()` permite obtener la facturación del mes anterior para calcular la diferencia respecto al periodo actual.
 
 Esto permite analizar no solo cuánto se ha facturado en cada mes, sino también si la facturación ha aumentado o disminuido respecto al periodo anterior.
 
 ---
 
-## 5.7. Técnicas SQL utilizadas
+## 5.6. Técnicas SQL utilizadas
 
 El conjunto de consultas permite aplicar diferentes elementos del lenguaje SQL:
 
@@ -544,7 +558,7 @@ El conjunto de consultas permite aplicar diferentes elementos del lenguaje SQL:
 | -------------- | --------------------------------------------------------- |
 | `SELECT`       | Recuperación de información                               |
 | `WHERE`        | Filtrado de registros                                     |
-| `DISTINCT`     | Eliminación de duplicados en resultados                   |
+| `DISTINCT`     | Eliminación de duplicados en los resultados               |
 | `JOIN`         | Combinación de información entre tablas                   |
 | `LEFT JOIN`    | Conservación de registros sin correspondencia             |
 | `GROUP BY`     | Agrupación de registros                                   |
@@ -557,7 +571,7 @@ El conjunto de consultas permite aplicar diferentes elementos del lenguaje SQL:
 | `COALESCE()`   | Gestión de valores `NULL`                                 |
 | `ROUND()`      | Redondeo de resultados                                    |
 | `EXTRACT()`    | Extracción de componentes de fechas                       |
-| `WITH`         | Creación de CTE                                           |
+| `WITH`         | Creación de Common Table Expressions (CTE)                |
 | `RANK()`       | Clasificación mediante funciones de ventana               |
 | `LAG()`        | Acceso al registro anterior                               |
 | `OVER()`       | Aplicación de funciones de ventana                        |
@@ -565,7 +579,7 @@ El conjunto de consultas permite aplicar diferentes elementos del lenguaje SQL:
 
 ---
 
-## 5.8. Progresión de dificultad
+## 5.7. Progresión de dificultad
 
 Las consultas se han diseñado siguiendo una progresión de complejidad:
 
@@ -585,13 +599,13 @@ Funciones de ventana
 Análisis temporal y comparativo
 ```
 
-Esta progresión permite demostrar la evolución desde las operaciones fundamentales de SQL hasta técnicas utilizadas habitualmente en análisis de datos relacionales.
+Esta progresión permite demostrar la evolución desde las operaciones fundamentales de SQL hasta técnicas utilizadas para realizar análisis sobre información empresarial.
 
 ---
 
-## 5.9. Relación con el objetivo del proyecto
+## 5.8. Relación con el objetivo del proyecto
 
-Las consultas cumplen dos funciones dentro del proyecto.
+Las consultas cumplen dos funciones principales dentro del proyecto.
 
 Por una parte, permiten **comprobar que el modelo de datos responde correctamente a las necesidades planteadas**, verificando que la información almacenada puede recuperarse y relacionarse de forma coherente.
 
@@ -609,6 +623,7 @@ Entre los análisis realizados se incluyen:
 * Rendimiento económico de los servicios.
 * Porcentaje de aceptación y rechazo de presupuestos.
 * Evolución temporal de la facturación.
-* Comparaciones estadísticas entre presupuestos, servicios y empleados.
+* Comparaciones entre presupuestos, servicios y empleados.
 
 El conjunto de consultas constituye, por tanto, la capa de **explotación y análisis de datos** de la base de datos desarrollada.
+
